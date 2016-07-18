@@ -16,7 +16,6 @@ log/
 pkg/
 /vendor
 /NEWS*
-/.manifest
 /GIT-VERSION-FILE
 /man
 /tmp

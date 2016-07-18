@@ -1,9 +1,38 @@
 # -*- encoding: binary -*-
-ENV["VERSION"] or abort "VERSION= must be specified"
+ENV["VERSION"] ||= '5.1.0'
 manifest = File.readlines('.manifest').map! { |x| x.chomp! }
-require 'olddoc'
-extend Olddoc::Gemspec
-name, summary, title = readme_metadata
+# require 'olddoc'
+# extend Olddoc::Gemspec
+# name, summary, title = readme_metadata
+name = "unicorn"
+summary = "Rack HTTP server for fast clients and Unix"
+title = "unicorn: Rack HTTP server for fast clients and Unix"
+readme_description = "unicorn is an HTTP server for Rack applications designed to only serve\nfast clients on low-latency, high-bandwidth connections and take\nadvantage of features in Unix/Unix-like kernels.  Slow clients should\nonly be served by placing a reverse proxy capable of fully buffering\nboth the the request and response in between unicorn and slow clients."
+extra_rdoc_files_manifest = ["FAQ",
+  "README",
+  "TUNING",
+  "PHILOSOPHY",
+  "HACKING",
+  "DESIGN",
+  "CONTRIBUTORS",
+  "LICENSE",
+  "SIGNALS",
+  "KNOWN_ISSUES",
+  "TODO",
+  "lib/unicorn.rb",
+  "lib/unicorn/configurator.rb",
+  "lib/unicorn/http_server.rb",
+  "lib/unicorn/preread_input.rb",
+  "lib/unicorn/stream_input.rb",
+  "lib/unicorn/tee_input.rb",
+  "lib/unicorn/util.rb",
+  "lib/unicorn/oob_gc.rb",
+  "lib/unicorn/worker.rb",
+  "ISSUES",
+  "Sandbox",
+  "Links",
+  "Application_Timeouts"
+]
 
 # don't bother with tests that fork, not worth our time to get working
 # with `gem check -t` ... (of course we care for them when testing with
@@ -21,9 +50,9 @@ Gem::Specification.new do |s|
   s.email = %q{unicorn-public@bogomips.org}
   s.executables = %w(unicorn unicorn_rails)
   s.extensions = %w(ext/unicorn_http/extconf.rb)
-  s.extra_rdoc_files = extra_rdoc_files(manifest)
+  s.extra_rdoc_files = extra_rdoc_files_manifest
   s.files = manifest
-  s.homepage = Olddoc.config['rdoc_url']
+  s.homepage = "http://unicorn.bogomips.org/"
   s.test_files = test_files
 
   # technically we need ">= 1.9.3", too, but avoid the array here since
@@ -40,7 +69,7 @@ Gem::Specification.new do |s|
   s.add_dependency(%q<raindrops>, '~> 0.7')
 
   s.add_development_dependency('test-unit', '~> 3.0')
-  s.add_development_dependency('olddoc', '~> 1.2')
+  # s.add_development_dependency('olddoc', '~> 1.2')
 
   # Note: To avoid ambiguity, we intentionally avoid the SPDX-compatible
   # 'Ruby' here since Ruby 1.9.3 switched to BSD-2-Clause, but we

@@ -54,7 +54,11 @@ module Unicorn::HttpResponse
     if hijack
       hijack.call(socket)
     else
-      body.each { |chunk| socket.write(chunk) }
+      if body.is_a?(String)
+        socket.write(body)
+      else
+        body.each { |chunk| socket.write(chunk) }
+      end
     end
   end
 end
